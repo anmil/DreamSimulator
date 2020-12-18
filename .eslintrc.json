@@ -1,0 +1,40 @@
+{
+	"root": true,
+	"env": {
+		"browser": true
+	},
+	"extends": [
+		"eslint:recommended"
+	],
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 2020,
+		"sourceType": "module"
+	},
+	"rules": {
+		"indent": [
+			"error",
+			"tab",
+			{
+				"SwitchCase": 1
+			}
+		],
+		"linebreak-style": [
+			"error",
+			"unix"
+		],
+		"quotes": [
+			"error",
+			"single"
+		],
+		"semi": [
+			"error",
+			"always"
+		],
+		"no-unused-vars": "warn",
+		"no-undef": "warn",
+		"no-empty": "warn"
+	}
+}
