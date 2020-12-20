@@ -1,26 +1,23 @@
 import del from 'rollup-plugin-delete';
-import prettier from 'rollup-plugin-prettier';
-import webWorkerLoader from 'rollup-plugin-web-worker-loader';
 import rust from '@wasm-tool/rollup-plugin-rust';
+import webWorkerLoader from 'rollup-plugin-web-worker-loader';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default {
-	input: 'js/simworker.js',
+	input: 'js/main.js',
 	output: {
-		dir: 'out',
+		dir: 'web',
 		format: 'cjs',
-		exports: 'default',
 	},
 	plugins: [
 		del({
-			targets: 'out/*',
+			targets: 'web/assets/*',
 		}),
-		webWorkerLoader({targetPlatform: 'node'}),
-		prettier({
-			singleQuote: true,
-			useTabs: true,
-			semi: true,
-			trailingComma: 'es5',
+		webWorkerLoader({
+			targetPlatform: 'browser',
+			inline: false,
 		}),
+		nodeResolve({ browser: true }),
 		rust({
 			watchPatterns: ['src/**/*'],
 		}),

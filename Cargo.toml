@@ -11,9 +11,9 @@ crate-type = ["cdylib", "rlib"]
 wasm-bindgen = "0.2"
 console_error_panic_hook = "0.1"
 once_cell = "1.5"
-js-sys = "0.3"
 rand = { version = "0.7", features = ["wasm-bindgen"] }
 rand_distr = "0.3"
+java_random = "0.1"
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"
@@ -21,7 +21,7 @@ wasm-bindgen-test = "0.3"
 [profile.release]
 lto = true
 codegen-units = 1
-opt-level = "s"
+opt-level = 3
 
 [package.metadata.wasm-pack.profile.release]
 wasm-opt = ["-Os", "--enable-mutable-globals"]

@@ -1,5 +1,5 @@
-use js_sys::Date;
-use rand::{Error, RngCore};
+use java_random::Random;
+use rand::{Error, Rng, RngCore};
 use std::{cell::UnsafeCell, ops::Deref};
 
 pub struct JavaRNGContainer {
@@ -16,9 +16,10 @@ impl Deref for JavaRNGContainer {
 
 impl Default for JavaRNGContainer {
 	fn default() -> Self {
-		let seed = Date::new_0().get_utc_milliseconds() as u64;
 		Self {
-			inner: UnsafeCell::new(JavaRNG { seed }),
+			inner: UnsafeCell::new(JavaRNG {
+				inner: Random::with_seed(rand::thread_rng().gen()),
+			}),
 		}
 	}
 }
@@ -27,17 +28,22 @@ unsafe impl Sync for JavaRNGContainer {}
 unsafe impl Send for JavaRNGContainer {}
 
 pub struct JavaRNG {
-	seed: u64,
+	inner: Random,
+}
+
+impl JavaRNG {
+	pub fn reseed(&mut self) {
+		self.inner.set_seed(rand::thread_rng().gen())
+	}
 }
 
 impl RngCore for JavaRNG {
 	fn next_u32(&mut self) -> u32 {
-		self.seed = ((self.seed) * 0x5DEECE66D_u64 + 0xB_u64) & ((1_u64 << 48) - 1);
-		(self.seed >> 16) as u32
+		self.inner.next_int() as u32
 	}
 
 	fn next_u64(&mut self) -> u64 {
-		self.next_u32() as u64
+		(self.next_u32() as u64) << 32 | (self.next_u32() as u64)
 	}
 
 	fn fill_bytes(&mut self, _dest: &mut [u8]) {

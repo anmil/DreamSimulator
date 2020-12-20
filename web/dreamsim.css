@@ -25,3 +25,39 @@ html {
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 }
+
+.dreamsim-toggle-container {
+	bottom: 5%;
+	position: absolute;
+	width: 100%;
+}
+
+.dreamsim-centered {
+	display: flex;
+	justify-content: center;
+}
+
+.dreamsim-button {
+	height: 50px;
+	width: 10%;
+}
+
+.dreamsim-start-button {
+	background-color: #4caf50;
+}
+
+.dreamsim-stop-button {
+	background-color: #f44336;
+}
+
+.dreamsim-stats {
+	vertical-align: center;
+}
+
+footer {
+	position: absolute;
+	bottom: 2%;
+	width: 99%;
+	text-align: center;
+	color: whitesmoke;
+}

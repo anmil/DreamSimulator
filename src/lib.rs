@@ -18,8 +18,18 @@ pub fn wasm_main() {
 
 #[wasm_bindgen]
 pub fn simulate_stream() -> Vec<u32> {
-	let pearls = PEARL_BINOMIAL.sample(unsafe { &mut (*PEARL_JAVA_RNG.get()) });
-	let rods = BLAZE_ROD_BINOMIAL.sample(unsafe { &mut (*BLAZE_ROD_JAVA_RNG.get()) });
+	let pearls = Binomial::new(262, 20.0 / 423.0)
+		.unwrap()
+		.sample(unsafe { &mut (*PEARL_JAVA_RNG.get()) });
+	let rods = Binomial::new(305, 0.5)
+		.unwrap()
+		.sample(unsafe { &mut (*BLAZE_ROD_JAVA_RNG.get()) });
 
 	vec![pearls as u32, rods as u32]
+}
+
+#[wasm_bindgen]
+pub fn reseed() {
+	unsafe { &mut (*PEARL_JAVA_RNG.get()) }.reseed();
+	unsafe { &mut (*BLAZE_ROD_JAVA_RNG.get()) }.reseed();
 }
