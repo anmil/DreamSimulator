@@ -2,6 +2,7 @@ import del from 'rollup-plugin-delete';
 import rust from '@wasm-tool/rollup-plugin-rust';
 import webWorkerLoader from 'rollup-plugin-web-worker-loader';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import { terser } from 'rollup-plugin-terser';
 
 export default {
 	input: 'js/main.js',
@@ -21,5 +22,6 @@ export default {
 		rust({
 			watchPatterns: ['src/**/*'],
 		}),
+		terser(),
 	],
 };
