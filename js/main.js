@@ -58,7 +58,7 @@ if (supported) {
 					'best-pearls-iteration'
 				).textContent = pearls.iteration.toLocaleString();
 
-				let rods = e.data.best_pearls;
+				let rods = e.data.best_rods;
 				document.getElementById(
 					'best-blaze-pearls'
 				).textContent = rods.pearls.toString();
